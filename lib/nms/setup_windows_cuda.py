@@ -11,7 +11,7 @@ import sys
 
 # CUDA specific config
 # nvcc is assumed to be in user's PATH
-nvcc_compile_args = ['-O', '--ptxas-options=-v', '-arch=compute_35', '-code=sm_35,sm_52,sm_61', '-c', '--compiler-options=-fPIC']
+nvcc_compile_args = ['-O3', '--ptxas-options=-v', '-arch=compute_35', '-code=sm_35,sm_52,sm_61', '-c', '--compiler-options=-fPIC']
 nvcc_compile_args = os.environ.get('NVCCFLAGS', '').split() + nvcc_compile_args
 cuda_libs = ['cublas']
 nvcc_bin = 'nvcc.exe'
