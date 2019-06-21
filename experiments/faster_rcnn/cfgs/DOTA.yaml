@@ -52,7 +52,7 @@ network:
 dataset:
   NUM_CLASSES: 16
   dataset: DOTA
-  dataset_path: "C:\\dotatest_1\\not_split_dataset_path"
+  dataset_path: "C:\\dotatest_1\\not_split_cj_dataset_path"
   image_set: test
   root_path: "C:\\dotatest_1\\root_path"
   test_image_set: test
