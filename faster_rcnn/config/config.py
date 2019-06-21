@@ -64,6 +64,7 @@ config.TRAIN.wd = 0.0005
 config.TRAIN.begin_epoch = 0
 config.TRAIN.end_epoch = 0
 config.TRAIN.model_prefix = ''
+config.TRAIN.model_path = ''
 
 config.TRAIN.ALTERNATE = edict()
 config.TRAIN.ALTERNATE.RPN_BATCH_IMAGES = 0

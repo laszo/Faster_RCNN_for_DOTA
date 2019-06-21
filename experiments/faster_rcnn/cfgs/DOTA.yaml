@@ -1,8 +1,8 @@
 ---
 MXNET_VERSION: "mxnet"
-output_path: "./output/rcnn/DOTA"
+output_path: "C:\\dotatest_1\\output_path"
 symbol: resnet_v1_101_rcnn
-gpus: '1'
+gpus: '0'
 CLASS_AGNOSTIC: false
 SCALES:
 - 1024
@@ -52,14 +52,9 @@ network:
 dataset:
   NUM_CLASSES: 16
   dataset: DOTA
-#  dataset_path: "/data/dj/dota/dota-split"
-  dataset_path: "/data/dj/ODAI/ODAI_test_split"
-  # NUM_CLASSES: 16
-  # dataset: DOTA
-  # dataset_path: "/home/dj/data/DOTA-v3"
-  image_set: train
-#  root_path: "/data/dj/dota"
-  root_path: "/data/dj/ODAI"
+  dataset_path: "C:\\dotatest_1\\not_split_dataset_path"
+  image_set: test
+  root_path: "C:\\dotatest_1\\root_path"
   test_image_set: test
   proposal: rpn
 TRAIN:
@@ -72,6 +67,7 @@ TRAIN:
   begin_epoch: 0
   end_epoch: 60
   model_prefix: 'rcnn_DOTA_aligned'
+  model_path: 'C:\\dotatest_1\\rcnn_DOTA_aligned'
   # whether resume training
   RESUME: false
   # whether flip image

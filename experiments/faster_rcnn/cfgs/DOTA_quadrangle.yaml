@@ -1,6 +1,7 @@
 ---
 MXNET_VERSION: "mxnet"
-output_path: "./output/rcnn/DOTA_quadrangle"
+#output_path: "./output/rcnn/DOTA_quadrangle"
+output_path: "C:\\dotatest_1\\output_path"
 symbol: resnet_v1_101_rcnn_quadrangle
 gpus: '0'
 CLASS_AGNOSTIC: false
@@ -52,11 +53,9 @@ network:
 dataset:
   NUM_CLASSES: 16
   dataset: DOTA_oriented
-#  dataset_path: "/data/dj/dota/dota-split"
-  dataset_path: "/data/dj/ODAI/ODAI_test_split"
+  dataset_path: "C:\\dotatest_1\\cj-dataset_path"
   image_set: train
-#  root_path: "/home/dj/data/"
-  root_path: "/data/dj/ODAI"
+  root_path: "C:\\dotatest_1\\root_path"
   test_image_set: test
   proposal: rpn
 TRAIN:
@@ -70,6 +69,7 @@ TRAIN:
   begin_epoch: 0
   end_epoch: 60
   model_prefix: 'rcnn_DOTA_quadrangle'
+  model_path: 'C:\\dotatest_1\\rcnn_DOTA_quadrangle'
   # whether resume training
   RESUME: false
   # whether flip image, as for quadrangle image, we have to carefully decide whether to flip it

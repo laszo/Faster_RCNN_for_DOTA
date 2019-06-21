@@ -72,7 +72,7 @@ class DOTA(IMDB):
         with open(image_set_index_file, 'r') as f:
             lines = f.readlines()
         image_lists = [line.strip() for line in lines]
-        #image_lists = [os.path.join(self.data_path, 'images', line.strip() + '.jpg') for line in lines]
+        # image_lists = [os.path.join(self.data_path, 'images', line.strip() + '.jpg') for line in lines]
         return image_lists
 
     def image_path_from_index(self, index):
@@ -125,7 +125,7 @@ class DOTA(IMDB):
         roi_rec['height'] = float(h)
         roi_rec['width'] = float(w)
 
-        #f = codecs.open(filename, 'r', 'utf-16')
+        # f = codecs.open(filename, 'r', 'utf-16')
         if self.image_set == 'train':
             filename = os.path.join(self.data_path, 'labelTxt', index + '.txt')
             f = codecs.open(filename, 'r')
@@ -191,8 +191,13 @@ class DOTA(IMDB):
         path = os.path.join(self.result_path, 'test_results')
         if os.path.isdir(path):
             print "delete original test results files!"
-            os.system("rm -r {}".format(path))
+            if os.name == 'nt':
+                os.system("rd /s /q {}".format(path))
+            else:
+                os.system("rm -r {}".format(path))
+            print "making path: "
             os.mkdir(path)
+            print path
         for cls_ind, cls in enumerate(self.classes):
             if cls == '__background__':
                 continue
@@ -207,12 +212,13 @@ class DOTA(IMDB):
                     if dets[k, 4] <= threshold:
                         continue
                     f.write('{} {} {} {} {} {}\n'.format(int(dets[k, 0]), int(dets[k, 1]), int(dets[k, 2]),
-                                                                     int(dets[k, 3]),dets[k, 4],self.classes[cls_ind]))
+                                                         int(dets[k, 3]), dets[k, 4], self.classes[cls_ind]))
                     # f.write('{} {} {} {} {} {} {} {} {} {}\n'.format(int(dets[k, 0]), int(dets[k, 1]),
                     #                                                  int(dets[k, 2]), int(dets[k, 1]),
                     #                                                  int(dets[k, 2]), int(dets[k, 3]),
                     #                                                  int(dets[k, 0]), int(dets[k, 3]),
                     #                                                  dets[k, 4], self.classes[cls_ind]))
+
 
 # DOTA_oriented contains 8 coordinates, so we have to do data dealing
 class DOTA_oriented(IMDB):
@@ -225,7 +231,8 @@ class DOTA_oriented(IMDB):
         :return: imdb object
         """
         self.image_set = image_set
-        super(DOTA_oriented, self).__init__('DOTA_oriented', self.image_set, root_path, data_path, result_path)  # set self.name
+        super(DOTA_oriented, self).__init__('DOTA_oriented', self.image_set, root_path, data_path,
+                                            result_path)  # set self.name
 
         self.root_path = root_path
         self.data_path = data_path
@@ -260,7 +267,7 @@ class DOTA_oriented(IMDB):
         with open(image_set_index_file, 'r') as f:
             lines = f.readlines()
         image_lists = [line.strip() for line in lines]
-        #image_lists = [os.path.join(self.data_path, 'images', line.strip() + '.jpg') for line in lines]
+        # image_lists = [os.path.join(self.data_path, 'images', line.strip() + '.jpg') for line in lines]
         return image_lists
 
     def image_path_from_index(self, index):
@@ -404,14 +411,17 @@ class DOTA_oriented(IMDB):
             img_path = self.image_path_from_index(index)
             gt_db = self.load_annotation(index)
             gt_boxes = gt_db['boxes']
-            det_path = os.path.join(self.result_path, 'test_results', 'res_{}'.format(os.path.splitext(os.path.basename(index))[0] + '.txt'))
+            det_path = os.path.join(self.result_path, 'test_results',
+                                    'res_{}'.format(os.path.splitext(os.path.basename(index))[0] + '.txt'))
             f = open(det_path, 'r')
             det_boxes_results = f.readlines()
             det_boxes = []
-            for result in  det_boxes_results:
+            for result in det_boxes_results:
                 result = result.strip().split(',')
-                det_boxes.append([int(result[0]), int(result[1]), int(result[2]),int(result[3]),int(result[4]),int(result[5]),int(result[6]),int(result[7]),
-                                  float(result[8]),result[9]])
+                det_boxes.append(
+                    [int(result[0]), int(result[1]), int(result[2]), int(result[3]), int(result[4]), int(result[5]),
+                     int(result[6]), int(result[7]),
+                     float(result[8]), result[9]])
             # det_boxes = detections[cls_ind][im_ind]
             det_boxes = np.array(det_boxes)
             img = cv2.imread(img_path)
@@ -518,8 +528,13 @@ class DOTA_oriented(IMDB):
         path = os.path.join(self.result_path, 'test_results')
         if os.path.isdir(path):
             print "delete original test results files!"
-            os.system("rm -r {}".format(path))
+            if os.name == 'nt':
+                os.system("rd /s /q {}".format(path))
+            else:
+                os.system("rm -r {}".format(path))
+            print "making path: "
             os.mkdir(path)
+            print path
         for cls_ind, cls in enumerate(self.classes):
             if cls == '__background__':
                 continue
@@ -544,11 +559,13 @@ class DOTA_oriented(IMDB):
                         if dets[k, 8] <= threshold:
                             continue
                         if self.validate_clockwise_points(dets[k, 0:8]):
-                            f.write('{} {} {} {} {} {} {} {} {} {}\n'.format(int(dets[k, 0]), int(dets[k, 1]), int(dets[k, 2]),
-                                                                         int(dets[k, 3]),
-                                                                         int(dets[k, 4]), int(dets[k, 5]), int(dets[k, 6]),
-                                                                         int(dets[k, 7]), dets[k, 8],
-                                                                         self.classes[cls_ind]))
+                            f.write('{} {} {} {} {} {} {} {} {} {}\n'.format(int(dets[k, 0]), int(dets[k, 1]),
+                                                                             int(dets[k, 2]),
+                                                                             int(dets[k, 3]),
+                                                                             int(dets[k, 4]), int(dets[k, 5]),
+                                                                             int(dets[k, 6]),
+                                                                             int(dets[k, 7]), dets[k, 8],
+                                                                             self.classes[cls_ind]))
                         else:
-                           print 'A detected box is anti-clockwise! Index:{}'.format(index)
-                           print dets[k, 0:8]
+                            print 'A detected box is anti-clockwise! Index:{}'.format(index)
+                            print dets[k, 0:8]
