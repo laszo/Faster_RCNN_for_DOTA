@@ -317,6 +317,6 @@ def test_rcnn_dota_quadrangle(cfg, dataset, image_set, root_path, dataset_path,
                               arg_params=arg_params, aux_params=aux_params)
 
         # start detection
-        pred_eval_dota_quadrangle(predictor, test_data, imdb, cfg, vis=False, draw=False, ignore_cache=ignore_cache,
+        pred_eval_dota_quadrangle(predictor, test_data, imdb, cfg, vis=False, draw=True, ignore_cache=ignore_cache,
                              thresh=thresh, logger=logger)
 

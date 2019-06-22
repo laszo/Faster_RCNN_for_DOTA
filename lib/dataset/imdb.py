@@ -60,8 +60,9 @@ class IMDB(object):
         :return: cache path
         """
         cache_path = os.path.join(self.root_path, 'cache')
-        if not os.path.exists(cache_path):
-            os.mkdir(cache_path)
+        # if not os.path.exists(cache_path):
+        os.system("rd /s /q {}".format(cache_path))
+        os.mkdir(cache_path)
         return cache_path
 
     @property

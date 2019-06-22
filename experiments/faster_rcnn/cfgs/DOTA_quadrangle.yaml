@@ -1,6 +1,5 @@
 ---
 MXNET_VERSION: "mxnet"
-#output_path: "./output/rcnn/DOTA_quadrangle"
 output_path: "C:\\dotatest_1\\output_path"
 symbol: resnet_v1_101_rcnn_quadrangle
 gpus: '0'
@@ -53,7 +52,7 @@ network:
 dataset:
   NUM_CLASSES: 16
   dataset: DOTA_oriented
-  dataset_path: "C:\\dotatest_1\\cj-dataset_path"
+  dataset_path: "C:\\dotatest_1\\dataset_path"
   image_set: train
   root_path: "C:\\dotatest_1\\root_path"
   test_image_set: test
@@ -168,4 +167,4 @@ TEST:
   # RCNN nms
   NMS: 0.3
   test_epoch: 59
-  save_img_path: '/home/dj/data/vis'
+  save_img_path: 'C:\\dotatest_1\\save_img_path'

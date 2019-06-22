@@ -44,10 +44,10 @@ from utils.create_logger import create_logger
 
 def main():
     ctx = [mx.gpu(int(i)) for i in config.gpus.split(',')]
+    args.vis = True
     print args
 
     logger, final_output_path = create_logger(config.output_path, args.cfg, config.dataset.test_image_set)
-
 
     test_rcnn_dota(config, config.dataset.dataset, config.dataset.test_image_set, config.dataset.root_path,
                              config.dataset.dataset_path,
